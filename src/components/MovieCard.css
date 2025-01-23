@@ -1,0 +1,28 @@
+
+
+
+p {
+    display: -webkit-box;
+    -webkit-box-orient:vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    max-height: 3rem;
+}
+
+.overlay {
+    height: 250px;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: relative;
+    top: -100%;
+    padding: 15px;
+    display: flex;
+    justify-content: right;
+    align-items: start;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+}
