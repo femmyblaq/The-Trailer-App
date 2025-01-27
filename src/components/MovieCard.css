@@ -1,6 +1,5 @@
 
 
-
 p {
     display: -webkit-box;
     -webkit-box-orient:vertical;
@@ -25,4 +24,23 @@ p {
 button {
     background-color: transparent;
     border: none;
+}
+
+.loader {
+    height: 60px;
+    width: 60px;
+    border: 5px solid #00f;
+    border-radius: 50px;
+    margin: auto;
+    animation: Spinner 200ms infinite;
+}
+
+
+@keyframes Spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

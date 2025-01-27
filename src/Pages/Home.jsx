@@ -3,12 +3,15 @@ import MovieCard from "../components/MovieCard";
 import mv1 from "../assets/Images/theSquidGame.jpg"
 import mv2 from "../assets/Images/movie2.jpg"
 import mv3 from "../assets/Images/movie3.jpg"
-import { useState } from "react";
-import { getAllMovies } from "../Services/api";
+import { useState, useEffect } from "react";
+import { getAllMovies, searchMovies} from "../Services/api";
 
 const Home = () => {
     const [searchQuery, setSearchQuery] = useState("")
     const [movies, setMovies] = useState([])
+    const [err, setError] = useState(null)
+    const [loader, setLoader] = useState(true)
+
     // const movies = [
     //     {
     //         id: 1,
@@ -40,22 +43,46 @@ const Home = () => {
     //     }
 
     // ]
+    useEffect(() => {
 
-    const loadedMovies = async () => {
-        const allMovies = await getAllMovies()
-        setMovies(allMovies)
+        const loadedMovies = async () => {
+        try {
+                const allMovies = await getAllMovies()
+                setMovies(allMovies)
+                setError(null)
+            }
+         catch (err) {
+            console.log(err)
+            setError("Failed to load movies...")
+        }finally {
+            setLoader(false)
+        }
+
     }
-    
+        loadedMovies()
 
-    loadedMovies()
+
+    }, [])
 
 
     const searchHandler = (e) => {
         setSearchQuery(e.target.value)
     }
-    const submitHandler = (e) => {
+
+
+    const submitHandler = async(e) => {
         e.preventDefault()
-        console.log(searchQuery)
+        if(!searchQuery.trim()) return
+        if(loader) return
+        try {
+            const searchedmovie = await searchMovies(searchQuery)
+            searchMovies(searchedmovie)
+            console.log(searchedmovie)
+        }catch(err) {
+            setError("Failed to search for movie...")
+        }finally {
+            setLoader(false)
+        }
     }
     // const movieTit = "Fola"
     // console.log("From Home:", movies)
@@ -63,7 +90,7 @@ const Home = () => {
         <>
             <div className="Heroes"></div>
             <div className="search d-flex justify-content-center align-items-center">
-                <form onSubmit={submitHandler}  className="d-flex justify-content-center w-50">
+                <form onSubmit={submitHandler} className="d-flex justify-content-center w-50">
                     <input
                         type="search"
                         placeholder="Search"
@@ -75,20 +102,24 @@ const Home = () => {
                 </form>
             </div>
 
+           <h1 className="text-white">{err}</h1> 
 
+           
 
             <div className="movie-grids container-fluid px-5 mt-5">
                 <h1 className="fw-bolder text-light">Discover</h1>
-                <div className="row  mt-3 m-0">
-                    {movies.map((movie) =>  
-                        movie.title.toLowerCase().toUpperCase().includes(searchQuery) && (<MovieCard props={movie} key={movie.id} /> )
-                        
-                    
 
-    
-                )}
+                { loader ? <div className="loader"></div> : 
+                
+
+                <div className="row  mt-3 m-0">
+                    {movies.map((movie) => (<MovieCard props={movie} key={movie.id} />)
+
+                    )}
 
                 </div>
+                
+                }
             </div>
 
         </>
