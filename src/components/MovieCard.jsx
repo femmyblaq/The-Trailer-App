@@ -1,7 +1,15 @@
 import "./MovieCard.css"
+import { useMovieContext } from "../context/MovieContext"
 
 const MovieCard = ({ props }) => {
-    // console.log("From propsCard:", props)
+    const {isFavorite, addFavorite, removeFavorite} = useMovieContext()
+    const eachFavorite = isFavorite(props.id) //expect True or False
+
+    const onFavorite = () => {
+        if(eachFavorite) removeFavorite(props.id)
+            else addFavorite(movie)
+        
+    }
     return (
         <div className="col-lg-3 col-md-6 col-sm-12 p-1">
 
@@ -10,7 +18,7 @@ const MovieCard = ({ props }) => {
                     <img style={{ height: "100%" }}  src={`https://image.tmdb.org/t/p/w500/${props.poster_path}`} alt="" className="card-img-top" />
                 
                     <div className="overlay">
-                        <button>🤍</button>
+                        <button onClick={onFavorite} className="text-danger"><i className="ri-heart-fill text-danger"></i></button>
                     </div>
                 </div>
                 <div className="card-body p-1 bg-dark text-light">
