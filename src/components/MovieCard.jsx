@@ -7,7 +7,7 @@ const MovieCard = ({ props }) => {
 
     const onFavorite = () => {
         if(eachFavorite) removeFavorite(props.id)
-            else addFavorite(movie)
+            else addFavorite(props)
         
     }
     return (
@@ -18,7 +18,9 @@ const MovieCard = ({ props }) => {
                     <img style={{ height: "100%" }}  src={`https://image.tmdb.org/t/p/w500/${props.poster_path}`} alt="" className="card-img-top" />
                 
                     <div className="overlay">
-                        <button onClick={onFavorite} className="text-danger"><i className="ri-heart-fill text-danger"></i></button>
+                        <button onClick={onFavorite} className={eachFavorite ? "myFavorite" : ""}>
+                            <i className="ri-heart-fill"></i>
+                        </button>
                     </div>
                 </div>
                 <div className="card-body p-1 bg-dark text-light">

@@ -24,6 +24,12 @@ p {
 button {
     background-color: transparent;
     border: none;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .loader {
@@ -33,6 +39,12 @@ button {
     border-radius: 50px;
     margin: auto;
     animation: Spinner 200ms infinite;
+}
+.myFavorite {
+    border: 2px solid #fff;
+    color: red;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 100px;
 }
 
 

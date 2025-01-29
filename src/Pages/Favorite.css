@@ -1,0 +1,17 @@
+.favorite-section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content {
+    height: 300px;
+    width: 400px;
+    text-align: center;
+    background-color: rgba(45, 45, 45, 0.7);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
